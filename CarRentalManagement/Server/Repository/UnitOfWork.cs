@@ -52,7 +52,7 @@ namespace CarRentalManagement.Server.Repository
             var entries = _context.ChangeTracker.Entries()
                 .Where(q => q.State == EntityState.Modified ||
                     q.State == EntityState.Added);
-
+            /*
             foreach (var entry in entries)
             {
                 ((BaseDomainModel)entry.Entity).DateUpdated = DateTime.Now;
@@ -63,7 +63,7 @@ namespace CarRentalManagement.Server.Repository
                     ((BaseDomainModel)entry.Entity).CreatedBy = user;
                 }
             }
-
+            */
             await _context.SaveChangesAsync();
         }
     }
