@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRentalManagement.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class newdb : Migration
+    public partial class newdb4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,8 @@ namespace CarRentalManagement.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DrivingLicense = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -289,7 +291,7 @@ namespace CarRentalManagement.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Models",
+                name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -307,21 +309,21 @@ namespace CarRentalManagement.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Models_Colours_ColourId",
+                        name: "FK_Vehicles_Colours_ColourId",
                         column: x => x.ColourId,
                         principalTable: "Colours",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Models_Makes_MakeId",
+                        name: "FK_Vehicles_Makes_MakeId",
                         column: x => x.MakeId,
                         principalTable: "Makes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Models_Models_ModelId",
+                        name: "FK_Vehicles_Models_ModelId",
                         column: x => x.ModelId,
                         principalTable: "Models",
                         principalColumn: "Id",
@@ -336,7 +338,7 @@ namespace CarRentalManagement.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateIn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -353,9 +355,9 @@ namespace CarRentalManagement.Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Models_ModelId",
-                        column: x => x.ModelId,
-                        principalTable: "Models",
+                        name: "FK_Bookings_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -372,15 +374,15 @@ namespace CarRentalManagement.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "d432cc5d-761a-4074-bcd2-b0837c79754b", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOuuXOWWxELrGkjvpVezFGAJ8/IEv4t1Eypfq88giczIjcP+iAIw/GJ8/p5+OUHtvA==", null, false, "6c17d41d-565e-4be3-83db-2c8ad15bc0b9", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "8932a82a-ae73-4f56-85a7-b3d218f1688e", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOdXWbE8jzia/xp3/5AGqMwG5aS+Sacx0R3+z2r7Xq1zp+MFEdlpxUGrRu60iSabGw==", null, false, "eadd9134-70c5-4432-9336-e3caa92408c3", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Colours",
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(58), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(70), "Black", "System" },
-                    { 2, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(72), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(72), "Blue", "System" }
+                    { 1, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7235), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7249), "Black", "System" },
+                    { 2, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7251), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7251), "Blue", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -388,8 +390,8 @@ namespace CarRentalManagement.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(401), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(402), "BMW", "System" },
-                    { 2, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(404), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(405), "Toyota", "System" }
+                    { 1, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7571), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7571), "BMW", "System" },
+                    { 2, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7573), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7574), "Toyota", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -397,10 +399,10 @@ namespace CarRentalManagement.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(611), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(612), "3 Series", "System" },
-                    { 2, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(614), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(614), "X5", "System" },
-                    { 3, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(616), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(616), "Prius", "System" },
-                    { 4, "System", new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(617), new DateTime(2024, 1, 2, 14, 15, 37, 468, DateTimeKind.Local).AddTicks(618), "Rav4", "System" }
+                    { 1, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7778), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7779), "3 Series", "System" },
+                    { 2, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7781), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7782), "X5", "System" },
+                    { 3, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7783), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7783), "Prius", "System" },
+                    { 4, "System", new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7784), new DateTime(2024, 1, 10, 17, 50, 40, 480, DateTimeKind.Local).AddTicks(7785), "Rav4", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -453,9 +455,9 @@ namespace CarRentalManagement.Server.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_ModelId",
+                name: "IX_Bookings_VehicleId",
                 table: "Bookings",
-                column: "ModelId");
+                column: "VehicleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
@@ -494,18 +496,18 @@ namespace CarRentalManagement.Server.Migrations
                 columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_ColourId",
-                table: "Models",
+                name: "IX_Vehicles_ColourId",
+                table: "Vehicles",
                 column: "ColourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_MakeId",
-                table: "Models",
+                name: "IX_Vehicles_MakeId",
+                table: "Vehicles",
                 column: "MakeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_ModelId",
-                table: "Models",
+                name: "IX_Vehicles_ModelId",
+                table: "Vehicles",
                 column: "ModelId");
         }
 
@@ -549,7 +551,7 @@ namespace CarRentalManagement.Server.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Models");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Colours");

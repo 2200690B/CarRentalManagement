@@ -6,6 +6,13 @@
 <hr />
 <br />
 
+<!-- 
+    form that popluates what u need for vehicles
+    calls the last method inside code to create vehicle
+    
+-->
+	
+
 <EditForm Model="@vehicle" OnValidSubmit="CreateVehicle">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -13,6 +20,7 @@
     <div class="form-group">
         <label>Make: </label>
         <div>
+            <!-- input select is a drop down list, binds value to vehicle.makeid (selectMake) -->
             <InputSelect @bind-Value="vehicle.MakeId" class="form-control">
                 <option value="">-- Select Make --</option>
                 @if (Makes != null)
@@ -63,7 +71,7 @@
 
     <div class="form-group">
         <label>Year: </label>
-        <div>
+        <div> <!-- inputs number (year) -->
             <InputNumber @bind-Value="@vehicle.Year" class="form-control" />
             <ValidationMessage For="@(() => vehicle.Year)" />
         </div>
@@ -96,10 +104,10 @@
 
 
 @code {
-    Vehicle vehicle = new Vehicle();
+    Vehicle vehicle = new Vehicle();    // creating an instance of Vehicle
 
     private IList<Make>? Makes;
-    private IList<Model>? Models;
+    private IList<Model>? Models;    //creating these 3 instances (aka handlers) to reference data on those entities
     private IList<Colour>? Colours;
 
     protected async override Task OnInitializedAsync()
@@ -107,6 +115,9 @@
         Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndpoint}");
         Models = await _client.GetFromJsonAsync<List<Model>>($"{Endpoints.ModelsEndpoint}");
         Colours = await _client.GetFromJsonAsync<List<Colour>>($"{Endpoints.ColoursEndpoint}");
+        //method that pumps data in, will be urn everytime page loads
+        //creates a list of Make/Model through the Endpoints.MakesEndpoint /.ModelEndpoint
+
     }
 
     private async Task CreateVehicle()
@@ -114,5 +125,8 @@
         await _client.PostAsJsonAsync(Endpoints.VehiclesEndpoint, vehicle);
         _navManager.NavigateTo("/vehicles/");
     }
+
+    //any changes in entities NEEDS a migration to reflect sql databse
+    //always start w a more difficult page
 
 }
